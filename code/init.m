@@ -12,15 +12,15 @@ nodes
 edges
 
 sources  = gen_sources();
-[colonies, ants] = gen_colony();
+[colonies] = gen_colony();
 
 sources
 colonies
-ants
+
 
 % Call Simulation Script
 %-------------------------------------
-simulation(graph, nodes, edges, sources, colonies, ants, 1, 0.1)
+simulation(graph, nodes, edges, sources, colonies, 1, 0.1)
 
 %Analyse 
 %-------------------------------------
