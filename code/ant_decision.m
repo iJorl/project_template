@@ -1,1 +1,1 @@
-function[] = ant_decision()
+function[] = ant_decision(ant, graph)
