@@ -9,7 +9,7 @@ ant(1).colony  = colonyNr;         % Nr of colony
 ant(1).food = 0;                   % Quality of food carrying (0 = no food)
 ant(1).edge = 0;                   % Index of curr edge
 ant(1).edgeProgress = 0;           % Progress on edge
-ant(1).path = [0];                 % Path the ant took so far
+ant(1).path = [];                  % Path the ant took so far
 ant(1).direction = 0;              % Direction on the edge 1 for 'from' to 'to', -1 for 'to' to 'from'
 
 
