@@ -12,10 +12,14 @@ for i=1:length(nodes(ant.pos).edges)
     curr = nodes(ant.pos).edges(i);
     
     %prevent circles
-    if ant.direction == 1
-        check = edges(curr).to;
+    if ant.direction == 0
+        check = 0;
     else
-        check = edges(curr).from;
+        if ant.direction == 1
+            check = edges(curr).to;
+        else
+            check = edges(curr).from;
+        end
     end
     found = 0;
         for j=1:length(ant.path)
