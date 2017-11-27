@@ -4,7 +4,7 @@ function[colonies] = gen_colony()
 colonies = [];
 
 colonies(1).pos = 1;
-colonies(1).nrAnts = 100;
+colonies(1).nrAnts = 1000;
 
 nrColonies = size(colonies,2);
 

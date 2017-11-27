@@ -5,6 +5,8 @@
 %Setup INP vars
 %-------------------------------------
 
+const_phermons = 20;
+
 [graph, nodes, edges] = gen_graph();
 %graph{1}(1)
 %graph
@@ -20,10 +22,10 @@ sources  = gen_sources();
 
 % Call Simulation Script
 %-------------------------------------
-simulation(graph, nodes, edges, sources, colonies, 300, 1);
+simulation(graph, nodes, edges, sources, colonies, 400, 1, const_phermons);
 
 %Analyse 
-%-------------------------------------
+%------------------------------------- 
 
 %Viz
 %-------------------------------------
