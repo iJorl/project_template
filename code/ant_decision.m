@@ -15,7 +15,7 @@ for i=1:length(nodes(ant.pos).edges)
     if ant.direction == 0
         check = 0;
     else
-        if ant.direction == 1
+        if edges(curr).to ~= ant.pos
             check = edges(curr).to;
         else
             check = edges(curr).from;
@@ -23,7 +23,7 @@ for i=1:length(nodes(ant.pos).edges)
     end
     found = 0;
         for j=1:length(ant.path)
-            if check == ant.path(j) && curr ~= ant.edge
+            if check == ant.path(j) %&& curr ~= ant.edge
                 found = 1;
                 forbidden(length(forbidden)+1) = i;
             end
@@ -33,20 +33,20 @@ for i=1:length(nodes(ant.pos).edges)
     end
 end 
 
-if(strcmp(nodes(ant.pos).type,'traffic'))                % at Source and Colony nodes all the directions can be chosen, at traffic nodes a u-turn is not allowed
-    denumerator = denumerator - ((edges(ant.edge).phermons/edges(ant.edge).weight)+k)^2;
-end
+%if(strcmp(nodes(ant.pos).type,'traffic'))                % at Source and Colony nodes all the directions can be chosen, at traffic nodes a u-turn is not allowed
+%    denumerator = denumerator - ((edges(ant.edge).phermons/edges(ant.edge).weight)+k)^2;
+%end
 
 for i=1:length(nodes(ant.pos).edges)                % Calculate the probability of every edge
     prob(i) = (k+(edges(i).phermons/edges(i).weight))^2/denumerator;
-    if(nodes(ant.pos).edges(i) == ant.edge)         % This probability has to be removed for traffic nodes (U-Turn)    
-        curr = i;
-    end
+    %if(nodes(ant.pos).edges(i) == ant.edge)         % This probability has to be removed for traffic nodes (U-Turn)    
+     %   curr = i;
+    %end
 end
 
-if(strcmp(nodes(ant.pos).type,'traffic'))             
-    prob(curr) = 0;
-end
+%if(strcmp(nodes(ant.pos).type,'traffic'))             
+%    prob(curr) = 0;
+%end
 
 %prevent loops
 for i=1:length(forbidden)
