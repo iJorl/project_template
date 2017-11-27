@@ -32,7 +32,7 @@ edges = [];
 
 edges(1).from       = 1;
 edges(1).to         = 2;
-edges(1).weight     = 10;
+edges(1).weight     = 5;
 edges(1).phermons   = 0;
 
 edges(2).from       = 2;
@@ -42,7 +42,7 @@ edges(2).phermons   = 0;
 
 edges(3).from       = 2;
 edges(3).to         = 4;
-edges(3).weight     = 10;
+edges(3).weight     = 5;
 edges(3).phermons   = 0;
 
 %graph

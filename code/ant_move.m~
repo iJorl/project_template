@@ -1,6 +1,6 @@
 function[newAnt,newSources,newEdges] = ant_move(ant, sources, nodes, edges)
 
-uturnProb = 0.1; % Probability of a u-turn if no pheromones on edge
+uturnProb = 0.25; % Probability of a u-turn if no pheromones on edge
 
 %First time the ant is moved
 if ant.edge == 0
@@ -78,6 +78,8 @@ if strcmp(ant.state,'explore')
             if (ant.direction == 1 && edges(ant.edge).from == ant.pos) ||(ant.direction == -1 && edges(ant.edge).to == ant.pos)
                 %only turn if already moved
                 if edges(ant.edge).weight - ant.edgeProgress>0
+
+                    edges(ant.edge).phermons
                     ant.direction = ant.direction *(-1);
                     ant.edgeProgress = edges(ant.edge).weight - ant.edgeProgress;
                 end

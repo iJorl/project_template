@@ -5,22 +5,22 @@
 %Setup INP vars
 %-------------------------------------
 
-[graph, nodes, edges] = gen_graph()
+[graph, nodes, edges] = gen_graph();
 %graph{1}(1)
-graph
-nodes
-edges
+%graph
+%nodes
+%edges
 
 sources  = gen_sources();
 [colonies] = gen_colony();
 
-sources
-colonies
+%sources
+%colonies
 
 
 % Call Simulation Script
 %-------------------------------------
-simulation(graph, nodes, edges, sources, colonies, 1, 0.1)
+simulation(graph, nodes, edges, sources, colonies, 300, 1);
 
 %Analyse 
 %-------------------------------------
