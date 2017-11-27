@@ -78,11 +78,7 @@ if strcmp(ant.state,'explore')
             if (ant.direction == 1 && edges(ant.edge).from == ant.pos) ||(ant.direction == -1 && edges(ant.edge).to == ant.pos)
                 %only turn if already moved
                 if edges(ant.edge).weight - ant.edgeProgress>0
-                    r
-                    denum
                     edges(ant.edge).phermons
-            
-                    'UTURN'
                     ant.direction = ant.direction *(-1);
                     ant.edgeProgress = edges(ant.edge).weight - ant.edgeProgress;
                 end
