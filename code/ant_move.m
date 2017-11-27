@@ -1,6 +1,6 @@
 function[newAnt,newSources,newEdges] = ant_move(ant, sources, nodes, edges)
 
-uturnProb = 1000; % Probability of a u-turn if no pheromones on edge
+uturnProb = 0.25; % Probability of a u-turn if no pheromones on edge
 
 %First time the ant is moved
 if ant.edge == 0
@@ -21,9 +21,12 @@ if strcmp(ant.state,'explore')
     if ant.edgeProgress == 0
         % add new node to the path
         if ant.direction == 1
-            ant.path(length(ant.path)+1) = edges(ant.edge).to;
+            nextEdge = edges(ant.edge).to;
         else
-            ant.path(length(ant.path)+1) = edges(ant.edge).from;
+            nextEdge = edges(ant.edge).from;
+        end
+        if ant.pos ~= nextEdge
+            ant.path(length(ant.path)+1) = nextEdge;
         end
         
         ant.pos = ant.path(length(ant.path));
@@ -41,6 +44,7 @@ if strcmp(ant.state,'explore')
                     sources(i).antNr = sources(i).antNr+1;
                 end
             end
+            edges(ant.edge).phermons = edges(ant.edge).phermons+1;
             ant.path = ant.path(1:end-1);
         end
         
@@ -62,13 +66,29 @@ if strcmp(ant.state,'explore')
            
     else
     % travelling on a edge
-        % make a uturn?
-        if (edges(ant.edge).phermons/edges(ant.edge).weight)+uturnProb<rand() % baaaaad!! need to normalize!!
-            if edges(ant.edge).weight - ant.edgeProgress>0
-            ant.direction = ant.direction *(-1);
-                ant.edgeProgress = edges(ant.edge).weight - ant.edgeProgress;
+        % make a uturn? phermons on edge / phermons on all edges at prev.
+        % node
+        denum = 0;
+        for i=1:length(nodes(ant.pos).edges)
+            denum = denum + edges(nodes(ant.pos).edges(i)).phermons;
+        end
+        r = rand;
+        if denum~=0 && (1-(edges(ant.edge).phermons/denum))*uturnProb>r
+            % only turn if this is the first Uturn on the edge
+            if (ant.direction == 1 && edges(ant.edge).from == ant.pos) ||(ant.direction == -1 && edges(ant.edge).to == ant.pos)
+                %only turn if already moved
+                if edges(ant.edge).weight - ant.edgeProgress>0
+                    r
+                    denum
+                    edges(ant.edge).phermons
+            
+                    'UTURN'
+                    ant.direction = ant.direction *(-1);
+                    ant.edgeProgress = edges(ant.edge).weight - ant.edgeProgress;
+                end
             end
         end
+        % move ant
         ant.edgeProgress = ant.edgeProgress-1;     
     end
 
