@@ -1,17 +1,17 @@
 
-function[x] = gen_sources()
+function[x] = gen_sources(nodes)
 
-% where located, food quality, #ants
+% assume an initial state where qualitiy is the same and no ants have
+% visited
 
-x(1).pos = 3;           % Index of the node in graph
-x(1).quality = 0.2;      % Quality of the food source
-x(1).antNr = 0;         % Number of ants at the sources
-
-x(2).pos = 4;           % Index of the node in graph
-x(2).quality = 0.1;      % Quality of the food source
-x(2).antNr = 0;         % Number of ants at the sources
-
-%x = [
-%    [2, 10, 0];
-%    [3, 10, 0]
-%];
+x = [];
+s = 1;
+n = length(nodes);
+for i=1:n
+    if nodes(i).type == "colony" 
+        x(s).pos = i;
+        x(s).quality = 1;
+        x(s).antNr = 0;
+        s = s + 1;
+    end
+end

@@ -1,10 +1,20 @@
-function[colonies] = gen_colony()
+function[colonies] = gen_colony(nodes)
 
 % place, nrOfAnts, Ants
-colonies = [];
 
-colonies(1).pos = 1;
-colonies(1).nrAnts = 1000;
+nrOfAnts = 1;
+
+colonies = [];
+s = 1;
+n = length(nodes);
+for i=1:n
+    if nodes(i).type == "colony" 
+        colonies(i).pos = i;
+        colonies(i).nrAnts = nrOfAnts;
+        s = s + 1;
+    end
+end
+
 
 nrColonies = size(colonies,2);
 

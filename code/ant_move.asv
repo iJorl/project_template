@@ -39,20 +39,19 @@ if strcmp(ant.state,'explore')
             % source
             pos = ant.pos;%ant.path(length(ant.path));
             
-            ant.food = sources(nodes(pos).link).quality;
-            sources(nodes(pos).link).antNr = sources(nodes(pos).link).antNr + 1;
+           sources(nodes(pos).link).antNr = 
             
-            %for i=1:length(sources)
-            %    if sources(i).pos == pos
-            %        ant.food = sources(i).quality;
-            %        sources(i).antNr = sources(i).antNr+1;
-            %    end
-            %end
+            for i=1:length(sources)
+                if sources(i).pos == pos
+                    ant.food = sources(i).quality;
+                    sources(i).antNr = sources(i).antNr+1;
+                end
+            end
             edges(ant.edge).phermons = edges(ant.edge).phermons+1;
             ant.path = ant.path(1:end-1);
         end
         
-        if strcmp(nodes(ant.pos).type,'traffic')
+        if strcmp(nodes(ant.path(length(ant.path))).type,'traffic')
             %select new edge
             nextEdge = ant_decision(ant, nodes, edges);
             ant.edge = nextEdge;
