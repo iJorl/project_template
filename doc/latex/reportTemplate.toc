@@ -5,7 +5,8 @@
 \contentsline {subsection}{\numberline {4.1}Trail laying}{4}
 \contentsline {subsection}{\numberline {4.2}Binary choices}{5}
 \contentsline {subsection}{\numberline {4.3}U-Turns}{5}
-\contentsline {section}{\numberline {5}Implementation}{5}
-\contentsline {section}{\numberline {6}Simulation Results and Discussion}{5}
-\contentsline {section}{\numberline {7}Summary and Outlook}{5}
-\contentsline {section}{\numberline {8}References}{5}
+\contentsline {subsection}{\numberline {4.4}Extensions}{5}
+\contentsline {section}{\numberline {5}Implementation}{6}
+\contentsline {section}{\numberline {6}Simulation Results and Discussion}{6}
+\contentsline {section}{\numberline {7}Summary and Outlook}{6}
+\contentsline {section}{\numberline {8}References}{6}

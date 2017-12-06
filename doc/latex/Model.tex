@@ -10,4 +10,7 @@ n is the non-linearity factor. with a high value of n a branch with little more 
 \subsection{U-Turns}
 It is often observed, that ants on a trail make an U-turn, return to the common branch point and follow the other path. After a U-turn the ant does not engage in trail laying, until it has gone back to the branch and follows the new path. There are two causes of this behaviour. If the amount of pheromones on the trail is low the ant may turn around. The second reason is direction based. If the orientation to the target is not good the probability of an U-turn is high. This probability can be modelled by the equation
 $$P=\frac{P_0}{1+\alpha C}$$
-$P_0$ stands for the probability of an direction based U-turn. $\alpha$ describes the importance of the pheromone based U-turn.
+$P_0$ stands for the probability of an direction based U-turn. $\alpha$ describes the importance of the pheromone based U-turn
+\subsection{Extensions}
+For our project we could not use the model as given in the paper. For that reason the model was changed in some aspects to ease the implementation and add additional functionality. Because the goal of this paper is to model more complicated networks then the one with only one binary decision, formula ??????? has to be adapted to support a choice between more than just two paths. 
+$$P_i = \frac{(k+C_i)^n}{\sum{_{j=1}^{nr}(k+C_j)^n}}$$

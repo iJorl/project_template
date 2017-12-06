@@ -8,7 +8,7 @@ x = [];
 s = 1;
 n = length(nodes);
 for i=1:n
-    if nodes(i).type == "colony" 
+    if strcmp(nodes(i).type,'colony') 
         x(s).pos = i;
         x(s).quality = 1;
         x(s).antNr = 0;

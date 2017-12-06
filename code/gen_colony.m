@@ -8,7 +8,7 @@ colonies = [];
 s = 1;
 n = length(nodes);
 for i=1:n
-    if nodes(i).type == "colony" 
+    if strcmp(nodes(i).type,'colony') 
         colonies(i).pos = i;
         colonies(i).nrAnts = nrOfAnts;
         s = s + 1;
