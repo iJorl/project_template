@@ -19,7 +19,7 @@ graph  = {};
 
 %edge stores begin, end, weight, phermons
 edges = [];
-offset = 0;
+offset = 2;
 for i=1:1:m
     edges(i).from     = A(offset + 1);
     edges(i).to       = A(offset + 2);
