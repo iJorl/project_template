@@ -47,11 +47,11 @@ for i=1:1:n
     s = 1;
     for j=1:1:m
         if edges(j).from == i
-            nodes(i).edges(s) = edges(j).to;
+            nodes(i).edges(s) = j;
             s = s+1;
         end
         if edges(j).to == i
-            nodes(i).edges(s) = edges(j).from;
+            nodes(i).edges(s) = j;
             s = s+1;
         end
     end
