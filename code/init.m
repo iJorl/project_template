@@ -13,7 +13,7 @@ const_phermons = 20;
 %nodes
 %edges
 
-draw(nodes)
+draw(nodes,edges)
 
 sources  = gen_sources(nodes);
 [colonies] = gen_colony(nodes);
@@ -24,7 +24,7 @@ sources  = gen_sources(nodes);
 
 % Call Simulation Script
 %-------------------------------------
-simulation(graph, nodes, edges, sources, colonies, 400, 1, const_phermons);
+%simulation(graph, nodes, edges, sources, colonies, 400, 1, const_phermons);
 
 %Analyse 
 %------------------------------------- 
