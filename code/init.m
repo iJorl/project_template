@@ -13,6 +13,8 @@ const_phermons = 20;
 %nodes
 %edges
 
+draw(nodes)
+
 sources  = gen_sources(nodes);
 [colonies] = gen_colony(nodes);
 

@@ -1,7 +1,7 @@
 function[graph, nodes, edges] = gen_graph()
 
 %open file
-fileID = fopen('graphs/phase_2.txt','r');
+fileID = fopen('graphs/phase_2_vis.txt','r');
 filter = '%f %f';
 A = fscanf(fileID, filter);
 fclose(fileID);
@@ -42,6 +42,8 @@ for i=1:1:n
     % link to correct source or nest
     nodes(i).link = A(offset+3);
     
+    nodes(i).pos = [A(offset+4), A(offset+5)];
+    
     % get all edges
     nodes(i).edges = [];
     s = 1;
@@ -56,7 +58,7 @@ for i=1:1:n
         end
     end
     
-    offset = offset + 3;
+    offset = offset + 5;
 end
 
 % node stores: type, link, edges

@@ -1,0 +1,30 @@
+function [] = draw(nodes)
+
+n=length(nodes)
+
+I = imread('images/base.png');
+RGB = insertShape(I,'circle',[150 280 35],'LineWidth',5);
+imshow(RGB)
+title('Original Grayscale Image', 'FontSize', 12);
+% Enlarge figure to full screen.
+set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+% Give a name to the title bar.
+set(gcf, 'Name', 'Demo by ImageAnalyst', 'NumberTitle', 'Off')
+hold on;
+axis on;
+
+% find right scale
+
+mi = 1000;
+max = 0;
+
+for i=1:1:n
+    mi = min(mi, nodes(i).pos(1));
+    max = max(ma, nodes(i).pos(1));
+end
+
+dist = max-mi;
+per = dist
+for i=1:1:n
+    viscircles([nodes(i).pos(1), nodes(i).pos(2)*100],1, 'Color', 'g')
+end
