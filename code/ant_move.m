@@ -48,13 +48,22 @@ if strcmp(ant.state,'explore')
             %        sources(i).antNr = sources(i).antNr+1;
             %    end
             %end
-            edges(ant.edge).phermons = edges(ant.edge).phermons+1;
+            edges(ant.edge).phermons = edges(ant.edge).phermons+ant.food;
             ant.path = ant.path(1:end-1);
         end
-        
-        if strcmp(nodes(ant.pos).type,'traffic')
+        % TODO: change in phase 3!!
+        if (strcmp(nodes(ant.pos).type,'traffic') || strcmp(nodes(ant.pos).type,'colony'))
             %select new edge
             nextEdge = ant_decision(ant, nodes, edges);
+            back = 0;
+            % Stuck in a cycle
+            while nextEdge == -1
+                back = back+1;
+                ant.pos = ant.path(length(ant.path)-back);
+                nextEdge = ant_decision(ant, nodes, edges);
+            end
+            ant.path = ant.path(1:end-back);
+            
             ant.edge = nextEdge;
             ant.edgeProgress = edges(nextEdge).weight;
             % determine if direction is - or +
