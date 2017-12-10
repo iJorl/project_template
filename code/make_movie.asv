@@ -1,0 +1,25 @@
+function[] = make_movie(NR)
+
+workingDir = 'video';
+%shuttleVideo = VideoReader('shuttle.avi');
+
+outputVideo = VideoWriter(fullfile(workingDir,'shuttle_out.avi'));
+outputVideo.FrameRate = 2;%shuttleVideo.FrameRate;
+open(outputVideo)
+
+for ii = 0:l:NR
+   %img = imread(strcat('exports/graph_', strcat(num2str(ii),'.png')))
+   img = imread(fullfile(workingDir,'images',imageNames{ii}));
+   writeVideo(outputVideo,img)
+end
+
+close(outputVideo)
+shuttleAvi = VideoReader(fullfile(workingDir,'shuttle_out.avi'));
+shuttleVideo = VideoReader('video/shuttle_out.avi');
+ii = 1;
+while hasFrame(shuttleAvi)
+   mov(ii) = im2frame(readFrame(shuttleAvi));
+   ii = ii+1;
+end
+figure
+imshow(mov(1).cdata, 'Border', 'tight')

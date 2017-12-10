@@ -40,16 +40,12 @@ for t=1:timestep:time
        if mod(t,20) == 0
            % add a new entry
            colonyProd(col,end+1) = 0;
-               draw(nodes,edges,colonies, nrViz)
-    nrViz = nrViz+1;
        end
        
         
     end
     %draw(nodes,edges, colonies)
 
-
-    
 end
 
 %colonies(1).ants(7).path

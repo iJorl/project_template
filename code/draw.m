@@ -1,4 +1,4 @@
-function [] = draw(nodes, edges, colonies)
+function [] = draw(nodes, edges, colonies, NR)
 
 n=length(nodes);
 
@@ -6,6 +6,7 @@ n=length(nodes);
 %RGB = insertShape(I,'circle',[150 280 35],'LineWidth',5);
 %imshow(RGB)
 clf('reset');
+set(gcf, 'Visible', 'off');
 title('Matlab Visualization of Ant Paths', 'FontSize', 12);
 % Enlarge figure to full screen.
 set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
@@ -88,4 +89,4 @@ for col=1:1:cols
     end
 end
 
-saveas(gcf,'exports/graph.png')
+saveas(gcf,strcat('exports/graph_' ,strcat(num2str(NR),'.png')))

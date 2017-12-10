@@ -23,8 +23,8 @@ sources  = gen_sources(nodes);
 
 % Call Simulation Script
 %-------------------------------------
-simulation(graph, nodes, edges, sources, colonies, 400, 1, const_phermons);
-
+%simulation(graph, nodes, edges, sources, colonies, 1000, 1, const_phermons);
+make_movie(49)
 %Analyse 
 %------------------------------------- 
 
