@@ -44,8 +44,12 @@ for t=1:timestep:time
        
         
     end
+    %draw(nodes,edges, colonies)
+    
 end
-colonies(1).ants(7).path
+draw(nodes,edges,colonies)
+%colonies(1).ants(7).path
 nodes(8)
 colonyProd
 sources
+colonies(1).ants(1)

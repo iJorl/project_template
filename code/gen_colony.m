@@ -2,7 +2,7 @@ function[colonies] = gen_colony(nodes)
 
 % place, nrOfAnts, Ants
 
-nrOfAnts = 10;
+nrOfAnts = 200;
 
 colonies = [];
 s = 1;
