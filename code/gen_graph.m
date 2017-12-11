@@ -28,11 +28,13 @@ for i=1:1:m
     offset = offset + 3;
 end
 
+nrCols = 0;
 nodes = [];
 for i=1:1:n
     % determine type
     nodes(i).type= 'traffic';
     if A(offset + 2) == 1
+        nrCols = nrCols+1;
        nodes(i).type = 'colony'; 
     end
     if A(offset + 2) == 2
@@ -59,6 +61,11 @@ for i=1:1:n
     end
     
     offset = offset + 5;
+end
+
+%adjust size of phermons vector
+for i=1:1:m
+    edges(i).pheromons = zeros(nrCols,1);
 end
 
 % node stores: type, link, edges

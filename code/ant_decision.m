@@ -35,7 +35,7 @@ for i=1:length(nodes(ant.pos).edges)
             end
         end
    if found == 0
-        denumerator = denumerator + ((edges(curr).phermons/edges(curr).weight)+k)^n;
+        denumerator = denumerator + ((edges(curr).phermons(ant.colony)/edges(curr).weight)+k)^n;
     end
 end 
 
@@ -43,7 +43,7 @@ end
 
 for i=1:length(nodes(ant.pos).edges)                % Calculate the probability of every edge
     curr = nodes(ant.pos).edges(i);
-    prob(i) = (k+(edges(curr).phermons/edges(curr).weight))^n/denumerator;
+    prob(i) = (k+(edges(curr).phermons(ant.colony)/edges(curr).weight))^n/denumerator;
 end
 
 %prevent loops

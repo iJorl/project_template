@@ -48,7 +48,7 @@ if strcmp(ant.state,'explore')
             %        sources(i).antNr = sources(i).antNr+1;
             %    end
             %end
-            edges(ant.edge).phermons = edges(ant.edge).phermons+ant.food;
+            edges(ant.edge).phermons(ant.colony) = edges(ant.edge).phermons(ant.colony)+ant.food;
             ant.path = ant.path(1:end-1);
         end
         % TODO: change in phase 3!!
@@ -83,10 +83,10 @@ if strcmp(ant.state,'explore')
         % node
         denum = 0;
         for i=1:length(nodes(ant.pos).edges)
-            denum = denum + edges(nodes(ant.pos).edges(i)).phermons;
+            denum = denum + edges(nodes(ant.pos).edges(i)).phermons(ant.colony);
         end
         r = rand;
-        if denum~=0 && (1-(edges(ant.edge).phermons/denum))*uturnProb>r
+        if denum~=0 && (1-(edges(ant.edge).phermons(ant.colony)/denum))*uturnProb>r
             % only turn if this is the first Uturn on the edge
             if (ant.direction == 1 && edges(ant.edge).from == ant.pos) ||(ant.direction == -1 && edges(ant.edge).to == ant.pos)
                 %only turn if already moved
@@ -135,13 +135,13 @@ else
             end
         end
         ant.edgeProgress = ant.edgeProgress -1;  
-        edges(ant.edge).phermons = edges(ant.edge).phermons + ant.food;
+        edges(ant.edge).phermons(ant.colony) = edges(ant.edge).phermons(ant.colony) + ant.food;
     else
 
         % travelling on a edge
         ant.edgeProgress = ant.edgeProgress-1;
         % place phermons 
-        edges(ant.edge).phermons = edges(ant.edge).phermons + ant.food;
+        edges(ant.edge).phermons(ant.colony) = edges(ant.edge).phermons(ant.colony) + ant.food;
     end
 end
 
