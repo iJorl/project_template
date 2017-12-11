@@ -16,13 +16,13 @@ for i=1:n
 end
 
 
-nrColonies = size(colonies,2);
-
-for col=1:1:nrColonies
-
-    for i=1:1:colonies(col).nrAnts
-       %colonies(col).ants(i) 
-       colonies(col).ants(i) = gen_ant(col, colonies(col).pos);
-    end
-    
-end
+% nrColonies = size(colonies,2);
+% 
+% for col=1:1:nrColonies
+% 
+%     for i=1:1:colonies(col).nrAnts
+%        %colonies(col).ants(i) 
+%        colonies(col).ants(i) = gen_ant(col, colonies(col).pos);
+%     end
+%     
+% end

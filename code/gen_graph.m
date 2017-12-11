@@ -65,7 +65,7 @@ end
 
 %adjust size of phermons vector
 for i=1:1:m
-    edges(i).pheromons = zeros(nrCols,1);
+    edges(i).phermons = zeros(nrCols,1);
 end
 
 % node stores: type, link, edges
