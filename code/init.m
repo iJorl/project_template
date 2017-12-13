@@ -2,6 +2,9 @@
 %------------------------------------
 
 
+
+
+
 %Setup INP vars
 %-------------------------------------
 %Ants Properties
@@ -29,9 +32,6 @@ draw_properties(1).showAnts = 1; % show ants?
 sources  = gen_sources(nodes);
 [colonies] = gen_colony(nodes);
 [ants] = gen_ants(colonies);
-
-sources
-colonies
 
 for i=1:1:length(nodes)
     if strcmp(nodes(i).type, 'colony') == 1

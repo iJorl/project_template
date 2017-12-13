@@ -24,6 +24,7 @@ if strcmp(ant.state,'deadEnd')
             ant.state = 'explore';
         else
             ant.pos = ant.path(length(ant.path));
+            ant.path = ant.path(1:end-1);
             if nodes(ant.pos).edges(1) ~= ant.edge
                 ant.edge = nodes(ant.pos).edges(1);
             else
@@ -95,10 +96,7 @@ if strcmp(ant.state,'explore')
             %end
             edges(ant.edge).phermons(ant.colony) = edges(ant.edge).phermons(ant.colony)+ant.food;
             ant.path = ant.path(1:end-1);
-        end
-        
-        % TODO: change in phase 3!!
-        if (strcmp(nodes(ant.pos).type,'traffic') || strcmp(nodes(ant.pos).type,'colony') || (strcmp(nodes(ant.pos).type,'source') && ant.pos == colonies(ant.colony).pos))
+        elseif (strcmp(nodes(ant.pos).type,'traffic') || strcmp(nodes(ant.pos).type,'colony') || (strcmp(nodes(ant.pos).type,'source') && ant.pos == colonies(ant.colony).pos))
             %select new edge
             nextEdge = ant_decision(ant, nodes, edges);
 
@@ -109,6 +107,7 @@ if strcmp(ant.state,'explore')
                ant.state = 'deadEnd';
                ant.path = ant.path(1:end-1);
                nextEdge = ant.edge;
+                ant.pos = ant.path(end);
             end
             ant.edge = nextEdge;
             ant.edgeProgress = edges(nextEdge).weight;

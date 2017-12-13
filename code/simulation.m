@@ -27,10 +27,13 @@ for i=1:1:nrColonies
 end
 for t=1:timestep:time
     % move ants
-    for antI=1:1:length(ants)
+   %%%% for antI=1:1:length(ants)
+   for antI=1:1:1 %ONLY TESTING PURPOSES
         [ants(antI),sources,edges, prod]= ant_move(ants(antI), sources, nodes, edges, colonies);
         colonyProd(ants(antI).colony).foodCounter = colonyProd(ants(antI).colony).foodCounter + prod;
     end
+    
+    pause;
 
     %update phermeons
     for p=1:1:length(edges)
@@ -52,7 +55,7 @@ for t=1:timestep:time
     
     %Visualize Simulation
     if draw_properties.draw == 1 && mod(t,draw_properties.timestep) == 0
-        draw(nodes,edges, colonies, ants, draw_properties);
+       % draw(nodes,edges, colonies, ants, draw_properties);
     end
        
 end
