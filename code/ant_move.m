@@ -15,18 +15,62 @@ if ant.edge == 0
     end
 end
 
+%Recover from a dead end
+if strcmp(ant.state,'deadEnd')
+    if ant.edgeProgress == 0
+        % Walk back until a node with degree > 2 is found
+        if length(nodes(ant.pos).edges)>2
+            ant.path = ant.path(1:end-1);
+            ant.state = 'explore';
+        else
+            ant.pos = ant.path(length(ant.path));
+            if nodes(ant.pos).edges(1) ~= ant.edge
+                ant.edge = nodes(ant.pos).edges(1);
+            else
+                ant.edge = nodes(ant.pos).edges(2);
+            end
+            %Adjust direction
+            if edges(ant.edge).from == ant.pos
+                ant.direction = 1;
+            else
+                ant.direction = -1;
+            end
+            ant.edgeProgress = edges(ant.edge).weight-1;
+        end
+    else
+        ant.edgeProgress = ant.edgeProgress -1;
+    end
+end
+
 % explore graph
 if strcmp(ant.state,'explore')
     % on a node
     if ant.edgeProgress == 0
+        % check 
         % add new node to the path
         if ant.direction == 1
-            nextEdge = edges(ant.edge).to;
+            nextPos = edges(ant.edge).to;
         else
-            nextEdge = edges(ant.edge).from;
+            nextPos = edges(ant.edge).from;
         end
-        if ant.pos ~= nextEdge
-            ant.path(length(ant.path)+1) = nextEdge;
+        
+        % if the added node leads to a cycle then remove the cycle in path
+        cycStart = -1;
+        for i=1:length(ant.path)
+            if ant.path(i) == nextPos && cycStart<0
+                cycStart = i;
+            end
+        end
+        %if the ant goes back to its own colony thats a deadend, not a
+        %cycle!
+        if cycStart>0 && length(nodes(nextPos))>1
+            'CYCLE!!!!!'
+            ant.path = ant.path(1:cycStart-1);
+        end
+        
+        %Add new node to path
+        if ant.pos ~= nextPos
+            ant.path(length(ant.path)+1) = nextPos;
         end
         
         ant.pos = ant.path(length(ant.path));
@@ -52,19 +96,20 @@ if strcmp(ant.state,'explore')
             edges(ant.edge).phermons(ant.colony) = edges(ant.edge).phermons(ant.colony)+ant.food;
             ant.path = ant.path(1:end-1);
         end
+        
         % TODO: change in phase 3!!
-        if (strcmp(nodes(ant.pos).type,'traffic') || strcmp(nodes(ant.pos).type,'colony'))
+        if (strcmp(nodes(ant.pos).type,'traffic') || strcmp(nodes(ant.pos).type,'colony') || (strcmp(nodes(ant.pos).type,'source') && ant.pos == colonies(ant.colony).pos))
             %select new edge
             nextEdge = ant_decision(ant, nodes, edges);
-            back = 0;
-            % Stuck in a cycle
-            while nextEdge == -1
-                back = back+1;
-                ant.pos = ant.path(length(ant.path)-back);
-                nextEdge = ant_decision(ant, nodes, edges);
+
+            % Ant walked in to a dead end (traffic node with degree 1) ->
+            % walk back on edge
+            if nextEdge == -1
+               'DEADEND!!!!'
+               ant.state = 'deadEnd';
+               ant.path = ant.path(1:end-1);
+               nextEdge = ant.edge;
             end
-            ant.path = ant.path(1:end-back);
-            
             ant.edge = nextEdge;
             ant.edgeProgress = edges(nextEdge).weight;
             % determine if direction is - or +
@@ -102,7 +147,8 @@ if strcmp(ant.state,'explore')
     end
 
 % back to colony nest
-else
+end
+if strcmp(ant.state,'back')
     % on a node
     if ant.edgeProgress == 0
         ant.pos = ant.path(length(ant.path));
@@ -112,6 +158,7 @@ else
             prod = ant.food;
             
             ant.path(1) = ant.pos;
+            ant.edge = 0;
             ant.state = 'explore';
             ant.edge = ant_decision(ant, nodes, edges);
             ant.edgeProgress = edges(ant.edge).weight;
@@ -147,6 +194,8 @@ else
         edges(ant.edge).phermons(ant.colony) = edges(ant.edge).phermons(ant.colony) + ant.food;
     end
 end
+
+ant
 
 newAnt = ant;
 newEdges = edges;
