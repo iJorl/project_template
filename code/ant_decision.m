@@ -9,7 +9,7 @@ forbidden = [];
 
 denumerator = 0;
 
-
+%cycle prevention
 for i=1:length(nodes(ant.pos).edges)
     curr = nodes(ant.pos).edges(i);
 
@@ -60,7 +60,6 @@ edge = -1;
 for i=2:length(prob)
     prob(i) = prob(i)+prob(i-1);
 end
-
 
 %select one of the available edges by chance
 for i=1:length(prob)

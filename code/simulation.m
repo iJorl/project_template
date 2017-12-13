@@ -1,6 +1,8 @@
 %SIMULATION.m
 %--------------------------
-function[] = simulation(graph, nodes, edges, sources, colonies, ants, time, timestep, const_phermons)
+function[] = simulation(graph, nodes, edges, sources,...
+                        colonies, ants, ...
+                        time, timestep, const_phermons, draw_properties)
 %check all parameters
 %--------------------------
 
@@ -14,47 +16,57 @@ function[] = simulation(graph, nodes, edges, sources, colonies, ants, time, time
     % for each ant
     %   do ant_sim()
 
-nrColonies = size(colonies,2);
-nrViz = 0;
+nrColonies = length(colonies);
 
 colonyProd = [];
 for i=1:1:nrColonies
-    colonyProd(i) = [0];
+    colonyProd(i).foodCounter       = 0;
+    colonyProd(i).foodCounterGlobal = 0;
+    colonyProd(i).intervals         = [0];
+    colonyProd(i).interval          = 2;
 end
 for t=1:timestep:time
-%     for col=1:1:nrColonies
-%         % move ants
-%         for antI=1:1:colonies(col).nrAnts
-%            [colonies(col).ants(antI),sources,edges] = ant_move(colonies(col).ants(antI), sources, nodes, edges);
-%             if colonies(col).ants(antI).pos == colonies(col).pos
-%                 colonyProd(col,end) = colonyProd(col,end) + colonies(col).ants(antI).food; 
-%             end
-%         end
-        % move ants
-        for antI=1:1:size(ants)
-            [ants(antI),sources,edges]= ant_move(ants(antI), sources, nodes, edges);
-            if ants(antI).pos == colonies(ants(antI).colony).pos
-                colonyProd(ants(antI).colony,end) = colonyProd(ants(antI).colony,end) + ants(antI).food; 
-            end
+    % move ants
+    for antI=1:1:length(ants)
+        [ants(antI),sources,edges, prod]= ant_move(ants(antI), sources, nodes, edges, colonies);
+        colonyProd(ants(antI).colony).foodCounter = colonyProd(ants(antI).colony).foodCounter + prod;
+    end
+
+    %update phermeons
+    for p=1:1:length(edges)
+        for cc=1:1:length(colonies)
+            edges(p).phermons(cc) = edges(p).phermons(cc) * (1 - 1/const_phermons);
         end
-
-
-       %update phermeons
-       for p=1:1:length(edges)
-           edges(p).phermons = edges(p).phermons * (1 - 1/const_phermons);
-       end
-       
-       %measure productivity
-       for col=1:1:nrColonies
-           if mod(t,20) == 0
+    end
+    %measure productivity over smaller intervalls
+    if mod(t,50) == 0
+        for i=1:1:nrColonies
                 % add a new entry
-                colonyProd(col,end+1) = 0;
-                %draw(nodes,edges,colonies, nrViz)
-                nrViz = nrViz+1;
-           end     
+                colonyProd(i).intervals(colonyProd(i).interval) = colonyProd(i).foodCounter;
+                colonyPord(i).foodCounterGlobal = colonyProd(i).foodCounterGlobal + colonyProd(i).foodCounter;
+                colonyProd(i).foodCounter = 0;
+                colonyProd(i).interval = colonyProd(i).interval + 1;
         end
-    %draw(nodes,edges, colonies)   
+    end
+    
+    
+    %Visualize Simulation
+    if draw_properties.draw == 1 && mod(t,draw_properties.timestep) == 0
+        draw(nodes,edges, colonies, ants, draw_properties);
+    end
+       
 end
-
+for i=1:1:length(ants)
+   ants(i) 
+end
 %colonies(1).ants(7).path
-%draw(nodes,edges, colonies,1)
+hold on
+for i=1:1:length(colonyProd)
+    colonyProd(i).intervals
+    plot([1:1:length(colonyProd(i).intervals)],colonyProd(i).intervals)
+end
+hold off
+saveas(gcf,strcat('exports/plot_' ,strcat('1','.png')));
+
+figure()
+draw(nodes,edges, colonies, ants, draw_properties);

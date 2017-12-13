@@ -1,5 +1,5 @@
-function[newAnt,newSources,newEdges] = ant_move(ant, sources, nodes, edges)
-
+function[newAnt,newSources,newEdges, prod] = ant_move(ant, sources, nodes, edges, colonies)
+prod = 0;
 uturnProb = 0.1; % Probability of a u-turn if no pheromones on edge
 
 %First time the ant is moved
@@ -31,7 +31,8 @@ if strcmp(ant.state,'explore')
         
         ant.pos = ant.path(length(ant.path));
         % check if discovered food source! - if yes has to switch to back
-        if strcmp(nodes(ant.pos).type,'source')
+        % cant be own colony!
+        if strcmp(nodes(ant.pos).type,'source') && ant.pos ~= colonies(ant.colony).pos
             ant.state = 'back';
             ant.direction = ant.direction*(-1);
             ant.edgeProgress = edges(ant.edge).weight;
@@ -108,6 +109,8 @@ else
         ant.path = ant.path(1:end-1);
         % back at home -> turn around 
         if isempty(ant.path)
+            prod = ant.food;
+            
             ant.path(1) = ant.pos;
             ant.state = 'explore';
             ant.edge = ant_decision(ant, nodes, edges);

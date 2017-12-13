@@ -1,0 +1,54 @@
+%SIMULATION.m
+%--------------------------
+function[] = simulation(graph, nodes, edges, sources,...
+                        colonies, ants, ...
+                        time, timestep, const_phermons, draw_properties)
+%check all parameters
+%--------------------------
+
+
+
+
+%Simulation loop
+%--------------------------
+% for each timestep
+%   for each colony
+    % for each ant
+    %   do ant_sim()
+
+nrColonies = size(colonies,2);
+nrViz = 0;
+
+colonyProd = [];
+for i=1:1:nrColonies
+    colonyProd(i) = [0];
+end
+for t=1:timestep:time
+    % move ants
+    for antI=1:1:length(ants)
+        [ants(antI),sources,edges, prod]= ant_move(ants(antI), sources, nodes, edges, colonies);
+        coloies(ant.colony).productivity = coloies(ant.colony).productivity + 
+    end
+
+    %update phermeons
+    for p=1:1:length(edges)
+        edges(p).phermons = edges(p).phermons * (1 - 1/const_phermons);
+    end
+       
+    %measure productivity
+    for col=1:1:nrColonies
+        if mod(t,20) == 0
+            % add a new entry
+            colonyProd(col,end+1) = 0;
+        end     
+    end
+    
+    %Visualize Simulation
+    if draw_properties.draw == 1 && mod(t,draw_properties.timestep) == 0
+        draw(nodes,edges, colonies, draw_properties.frameNr);
+    end
+       
+end
+
+%colonies(1).ants(7).path
+draw(nodes,edges, colonies, ants, draw_properties)
