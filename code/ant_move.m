@@ -68,13 +68,15 @@ if strcmp(ant.state,'explore')
         %if the ant goes back to its own colony thats a deadend, not a
         %cycle!
         if cycStart>0 && length(nodes(nextPos).edges)>1
-            'CYCLE!!!!!'
+            'CYCLE!!!!!';
             ant.path = ant.path(1:cycStart-1);
         end
         %Add new node to path
         if ant.pos ~= nextPos
-            ant.path(length(ant.path)+1) = nextPos;
+            %ant.path(length(ant.path)+1) = nextPos;
         end
+        
+        ant.path(length(ant.path)+1) = nextPos;
         
         ant.pos = ant.path(length(ant.path));
         % check if discovered food source! - if yes has to switch to back
@@ -100,12 +102,13 @@ if strcmp(ant.state,'explore')
             ant.path = ant.path(1:end-1);
         elseif (strcmp(nodes(ant.pos).type,'traffic') || strcmp(nodes(ant.pos).type,'colony') || (strcmp(nodes(ant.pos).type,'source') && ant.pos == colonies(ant.colony).pos))
             %select new edge
+            %ant
             nextEdge = ant_decision(ant, nodes, edges);
 
             % Ant walked in to a dead end (traffic node with degree 1) ->
             % walk back on edge
             if nextEdge == -1
-               'DEADEND!!!!'
+               'DEADEND!!!!';
                ant.state = 'deadEnd';
                ant.path = ant.path(1:end-1);
                nextEdge = ant.edge;
@@ -196,7 +199,7 @@ if strcmp(ant.state,'back')
     end
 end
 
-ant
+%ant
 
 newAnt = ant;
 newEdges = edges;

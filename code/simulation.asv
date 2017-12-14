@@ -64,17 +64,13 @@ end
 
 %analyze script
 hold on
-title('Productivity measure of ant colonies')
-xlabel('time') % x-axis label
-ylabel('Productivity [food/time]') % y-axis label
+title('Graph of Sine and Cosine Between -2\pi and 2\pi')
+xlabel('-2\pi < x < 2\pi') % x-axis label
+ylabel('sine and cosine values') % y-axis label
 for i=1:1:length(colonyProd)
     colonyProd(i).intervals;
-    plot([1:1:length(colonyProd(i).intervals)],colonyProd(i).intervals, 'DisplayName', strcat('Colony', num2str(i)))
+    plot([1:1:length(colonyProd(i).intervals)],colonyProd(i).intervals)
 end
-legend('Location','southeast')
-legend('boxoff')
-legend('show');
-
 hold off
 saveas(gcf,strcat('exports/plot_' ,strcat('1','.png')));
 

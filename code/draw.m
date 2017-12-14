@@ -6,7 +6,7 @@ cols = length(colonies);
 nrAnts = length(ants);
 
 
-for col=2:1:cols
+for col=1:1:cols
     %set settings
     clf('reset');
     if(draw_properties.show == 0)
