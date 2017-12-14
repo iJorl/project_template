@@ -92,9 +92,14 @@ if strcmp(ant.state,'explore')
             % source
             pos = ant.pos;%ant.path(length(ant.path));
             
-            ant.food = sources(nodes(pos).link).quality;
-            sources(nodes(pos).link).antNr = sources(nodes(pos).link).antNr + 1;
-            
+            %ant.food = sources(nodes(pos).link).quality;
+            if(sources(nodes(pos).link).food > 0)
+                ant.food = min(sources(nodes(pos).link).food,1) * sources(nodes(pos).link).quality;
+                sources(nodes(pos).link).food = sources(nodes(pos).link).food -1;
+            else
+                ant.food = 0;
+                sources(nodes(pos).link).antNr = sources(nodes(pos).link).antNr + 1;
+            end
             %for i=1:length(sources)
             %    if sources(i).pos == pos
             %        ant.food = sources(i).quality;

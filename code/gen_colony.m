@@ -2,7 +2,7 @@ function[colonies] = gen_colony(nodes)
 
 % place, nrOfAnts, Ants
 
-nrOfAnts = 10;
+nrOfAnts = 500;
 
 colonies = [];
 s = 1;
@@ -11,6 +11,8 @@ for i=1:n
     if strcmp(nodes(i).type,'colony') 
         colonies(s).pos = i;
         colonies(s).nrAnts = nrOfAnts;
+        colonies(s).upperLimit = nrOfAnts * 2;
+        colonies(s).lowerLimit = nrOfAnts * 0.5;
         s = s + 1;
     end
 end
