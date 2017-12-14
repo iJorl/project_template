@@ -18,13 +18,16 @@ end
 %Recover from a dead end
 if strcmp(ant.state,'deadEnd')
     if ant.edgeProgress == 0
+        ant.pos = ant.path(length(ant.path));
+        ant.path = ant.path(1:end-1);
         % Walk back until a node with degree > 2 is found
         if length(nodes(ant.pos).edges)>2
-            ant.path = ant.path(1:end-1);
+            %ant.path = ant.path(1:end-1);
             ant.state = 'explore';
+            ant.pos = ant.path(end);
         else
-            ant.pos = ant.path(length(ant.path));
-            ant.path = ant.path(1:end-1);
+            %ant.pos = ant.path(length(ant.path));
+            %ant.path = ant.path(1:end-1);
             if nodes(ant.pos).edges(1) ~= ant.edge
                 ant.edge = nodes(ant.pos).edges(1);
             else
@@ -64,11 +67,10 @@ if strcmp(ant.state,'explore')
         end
         %if the ant goes back to its own colony thats a deadend, not a
         %cycle!
-        if cycStart>0 && length(nodes(nextPos))>1
+        if cycStart>0 && length(nodes(nextPos).edges)>1
             'CYCLE!!!!!'
             ant.path = ant.path(1:cycStart-1);
         end
-        
         %Add new node to path
         if ant.pos ~= nextPos
             ant.path(length(ant.path)+1) = nextPos;
@@ -107,7 +109,7 @@ if strcmp(ant.state,'explore')
                ant.state = 'deadEnd';
                ant.path = ant.path(1:end-1);
                nextEdge = ant.edge;
-                ant.pos = ant.path(end);
+               % ant.pos = ant.path(end);
             end
             ant.edge = nextEdge;
             ant.edgeProgress = edges(nextEdge).weight;
