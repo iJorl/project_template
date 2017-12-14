@@ -18,13 +18,16 @@ end
 %Recover from a dead end
 if strcmp(ant.state,'deadEnd')
     if ant.edgeProgress == 0
+       % ant
         ant.pos = ant.path(length(ant.path));
         ant.path = ant.path(1:end-1);
         % Walk back until a node with degree > 2 is found
-        if length(nodes(ant.pos).edges)>2
+        if length(nodes(ant.pos).edges)>2 || length(ant.path) == 0
             %ant.path = ant.path(1:end-1);
             ant.state = 'explore';
-            ant.pos = ant.path(end);
+            if(length(ant.path))~=0
+                ant.pos = ant.path(end);
+            end
         else
             %ant.pos = ant.path(length(ant.path));
             %ant.path = ant.path(1:end-1);
