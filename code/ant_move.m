@@ -108,7 +108,7 @@ if strcmp(ant.state,'explore')
                         if diff > 0
                            r = rand();
                            if r <= (diff)/(p1+p2) %swap with prob (diff/ total)
-                               'CHANGE'
+                               'CHANGE';
                                ant = gen_ant(colNr2, ant.pos);
                                colonies(colNr2).population = colonies(colNr2).population + 1;
                                colonies(colNr1).population = colonies(colNr1).population - 1;

@@ -91,18 +91,11 @@ analysis(1).data = [analysisObj, analysisObj, analysisObj];
 
 sizeOfSim = length(Simulations(1).data(1).globalProd.intervals);
 for k=1:1:sizeOfSim
- 
-     for j=1:1:3
-        savg = 0;
-        smax = Simulations(k).data(j).globalprod.intervals(1);
-        smin = Simulations(k).data(j).globalprod.intervals(1);
-       
-        for i=1:1:sizeOfSim
-            a = Simulations(k).data(j).globalProd.intervals(i);
-            s = s + a
-            sma = max(sma, a);
-            smi = min(smi, a);           
-        end
+    
+    for j=1:1:3
+       savg = 0;
+       smax = Simulations(k).data(j).globalprod.intervals(k);
+       smin = 
     end
     
     

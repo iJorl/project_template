@@ -1,6 +1,6 @@
 %SIMULATION.m
 %--------------------------
-function[] = simulation(graph, nodes, edges, sources,...
+function[globalProd, colonyProd, sourceProd] = simulation(graph, nodes, edges, sources,...
                         colonies, ants, ...
                         time, timestep, timeInterval, const_phermons, draw_properties, strategy)
 %check all parameters
@@ -40,8 +40,8 @@ end
 progressPer = 0;
 for t=1:timestep:time
     %show progress
-    if ceil(t/time*100) > progressPer
-       progressPer = ceil(t/time*100) 
+    if ceil(t/time*10) > progressPer
+       progressPer = ceil(t/time*10) 
     end
     % move ants
    for antI=1:1:length(ants)
@@ -107,7 +107,7 @@ end
 %colonies(1).ants(7).path
 
 %analyze script
-analyse(colonyProd, sourceProd, globalProd)
+%analyse(colonyProd, sourceProd, globalProd)
 
 
-draw(nodes,edges, colonies, ants, draw_properties);
+%draw(nodes,edges, colonies, ants, draw_properties);
