@@ -1,3 +1,15 @@
-Every year there are more flights starting from the airports of Europe. Therefore arises the question, whether the passengers can be transported more efficiently. In this paper we describe the efficiency as passengers transported per time. The goal is to maximize this efficiency and transport as many passengers as possible in a given time period. For this optimization the resources should only be redistributed, but no additional planes or airports have to be added to the system. 
-We assume, that the most efficient way to transport these people is a compromise between distance to the destination and the size of the target airport. If the flight is long distance, then the destination airport has to be large, so that enough passengers have the desire to take this flight. If the distance is short, on the other hand, the flight is still worthwhile. 
-Because ants use their trail laying to 
+The amount of people who use the Swiss rail network has risen by over 900\% in the last 100 years. However the number of train stations and the total distance covered by rails have only seen an growth of less then 20\% \citep{SbbStats}. Therefore the efficiency, of transporting those customers has become more important. In this paper we describe the efficiency as passengers transported per time. The goal is to maximize this efficiency and transport as many passengers as possible in a given time period. For this optimization the resources should only be redistributed, but no additional trains or stations have to be added to the system. 
+We assume, that the most efficient way to transport these people is a compromise between distance to the destination and the size of the target city. If the train connection is over a long distance, then the destination city has to be large, so that enough passengers have the desire to use that connection. If the distance is short, and the demand for the connection is lower, it is still worthwhile to allocate some resources to that connection.
+In some way ants have a similar goal when searching for a new food source. They have to find a compromise between distance to a source and the quality of the provided food. Many studies show, that the method used by ants to find that optimum is very efficient. In fact they are so efficient, that over the last 20 years lots of research was done in solving problems with the inspiration from ants. These so called ant colony optimization (ACO) algorithms are mainly used in solving hard problems, which can not be efficiently solved. Through the research many promising algorithms have been found \citep{Aco1}.
+In the rest of this paper we are going to explore the following questions:
+\begin{itemize}
+  \item How can the productivity in a network be maximised?
+  \item What does this imply on the Swiss rail network?
+\end{itemize}
+We are going to investigate those questions with the help of an ACO. The analogy between the ant model and the rail system will be described In chapter \ref{relationNetwork}. The productivity in the ant network is defined as the amount of food, that is brought back to the colonies per time. We are looking to investigating the following parameters:
+\begin{enumerate}
+	\item The population sizes do not change.
+	\item The ants are free to change colonies globally.
+	\item The ants can only change colonies locally.
+	\item A combination of 2 and 3
+\end{enumerate}
