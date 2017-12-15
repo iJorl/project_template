@@ -11,9 +11,8 @@ for i=1:n
     if strcmp(nodes(i).type,'colony') 
         x(s).pos = i;
         x(s).quality = 1;
-        x(s).food = 200;
-        x(s).maxFood = x(s).food;
-        x(s).increase = 0.02*x(s).maxFood;
+        x(s).maxQuality = 1;
+        x(S).increase = 0.02
         x(s).antNr = 0;
         s = s + 1;
     end

@@ -6,7 +6,7 @@ cols = length(colonies);
 nrAnts = length(ants);
 
 
-for col=2:1:cols
+for col=1:1:cols
     %set settings
     clf('reset');
     if(draw_properties.show == 0)
@@ -64,7 +64,9 @@ for col=2:1:cols
         viscircles([off + nodes(i).pos(1)*per,off + nodes(i).pos(2)*per], ...
             3, 'Color', 'r');
     end
-
+    %mark home colony
+    viscircles([off + nodes(colonies(col).pos).pos(1)*per,off + nodes(colonies(col).pos).pos(2)*per], ...
+            5, 'Color', 'g');
     %draw the ants
     if draw_properties.showAnts == 1
         for antI=1:1:nrAnts

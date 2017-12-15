@@ -1,6 +1,5 @@
-function[newAnt,newSources,newEdges, prod, popChange] = ant_move(ant, sources, nodes, edges, colonies, colonyProd, strategy)
+function[newAnt,newSources,newEdges, prod] = ant_move(ant, sources, nodes, edges, colonies)
 prod = 0;
-popChange = [0,0];
 uturnProb = 0.1; % Probability of a u-turn if no pheromones on edge
 
 %First time the ant is moved
@@ -87,7 +86,6 @@ if strcmp(ant.state,'explore')
         % cant be own colony!
         if strcmp(nodes(ant.pos).type,'source') && ant.pos ~= colonies(ant.colony).pos
             %maybe want to apply local strategy
-            changedFlag = 0;
             if strcmp(strategy.type, 'local')
                 colNr1 = ant.colony;
                 colNr2 = 0;
@@ -101,54 +99,40 @@ if strcmp(ant.state,'explore')
                 if colNr2 ~= 0
                     % check if change even allowed
                     if(colonies(colNr1).population > colonies(colNr1).lowerLimit && colonies(colNr2).population < colonies(colNr2).upperLimit)
-                        p1 = colonyProd(colNr1).intervals(end); p2 = colonyProd(colNr2).intervals(end);
-                        diff = p2-p1;
-                        % colony2prod is higher than mine
-                        if diff > 0
-                           r = rand();
-                           if r <= (diff)/(p1+p2) %swap with prob (diff/ total)
-                               'CHANGE'
-                               ant = gen_ant(colNr2, ant.pos);
-                               colonies(colNr2).population = colonies(colNr2).population + 1;
-                               colonies(colNr1).population = colonies(colNr1).population - 1;
-                               popChange = [colNr2, colNr1];
-                               changedFlag = 1;
-                           end
-                        end
+                        colonyProd(end)
                     end
-                     
+                    gen_ant(colNr2, pos) 
                 end
-                   
+                
+                
             end
             
             
-            %if switched source no need for further code
-            if changedFlag == 0
+            %
             
-                ant.state = 'back';
-                ant.direction = ant.direction*(-1);
-                ant.edgeProgress = edges(ant.edge).weight;
-                % Adjust quality of the carried food & invrement counter of
-                % source
-                pos = ant.pos;%ant.path(length(ant.path));
-
-                %ant.food = sources(nodes(pos).link).quality;
-                if(sources(nodes(pos).link).food > 0)
-                    ant.food = min(sources(nodes(pos).link).food,1) * sources(nodes(pos).link).quality;
-                    sources(nodes(pos).link).food = sources(nodes(pos).link).food -1;
-                else
-                    ant.food = 0;
-                    sources(nodes(pos).link).antNr = sources(nodes(pos).link).antNr + 1;
-                end
-                %for i=1:length(sources)
-                %    if sources(i).pos == pos
-                %        ant.food = sources(i).quality;
-                %        sources(i).antNr = sources(i).antNr+1;
-                %    end
-                %end
-                edges(ant.edge).phermons(ant.colony) = edges(ant.edge).phermons(ant.colony)+ant.food;
-                ant.path = ant.path(1:end-1);
+            ant.state = 'back';
+            ant.direction = ant.direction*(-1);
+            ant.edgeProgress = edges(ant.edge).weight;
+            % Adjust quality of the carried food & invrement counter of
+            % source
+            pos = ant.pos;%ant.path(length(ant.path));
+            
+            %ant.food = sources(nodes(pos).link).quality;
+            if(sources(nodes(pos).link).food > 0)
+                ant.food = min(sources(nodes(pos).link).food,1) * sources(nodes(pos).link).quality;
+                sources(nodes(pos).link).food = sources(nodes(pos).link).food -1;
+            else
+                ant.food = 0;
+                sources(nodes(pos).link).antNr = sources(nodes(pos).link).antNr + 1;
             end
+            %for i=1:length(sources)
+            %    if sources(i).pos == pos
+            %        ant.food = sources(i).quality;
+            %        sources(i).antNr = sources(i).antNr+1;
+            %    end
+            %end
+            edges(ant.edge).phermons(ant.colony) = edges(ant.edge).phermons(ant.colony)+ant.food;
+            ant.path = ant.path(1:end-1);
         elseif (strcmp(nodes(ant.pos).type,'traffic') || strcmp(nodes(ant.pos).type,'colony') || (strcmp(nodes(ant.pos).type,'source') && ant.pos == colonies(ant.colony).pos))
             %select new edge
             %ant
