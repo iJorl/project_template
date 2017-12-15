@@ -5,7 +5,8 @@
 \usepackage{graphicx}
 \usepackage{amssymb}
 \usepackage{epstopdf}
-\usepackage{natbib}
+\usepackage[sort, numbers]{natbib}
+\setcitestyle{square}
 \usepackage{amssymb, amsmath}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
@@ -81,8 +82,10 @@
 
 
 \section{Abstract}
+\input{Abstract}
 
 \section{Individual contributions}
+\input{Contributions}
 
 \section{Introduction and Motivations}
 \input{Introduction}
@@ -96,11 +99,10 @@
 
 \section{Summary and Outlook}
 
-\section{References}
-
-
-
-
+\begin{flushleft}
+\bibliography{References}
+\bibliographystyle{apalike}
+\end{flushleft}
 
 
 \end{document}  
