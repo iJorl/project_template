@@ -9,13 +9,14 @@
 %-------------------------------------
 %Ants Properties
 const_phermons = 300; %phermons mean live time
-antsPerColony  = 10;
+antsPerColony  = 50;
 
 %Time Properties
-time        = 500; %overall duration of sim
+time        = 100; %overall duration of sim
 timestep    = 1; 
 timeInterval = 50;
 
+RandStream.setGlobalStream(RandStream('mt19937ar','seed',42))
 
 %drawProperties
 draw_properties(1).draw     = 1; %should draw?
@@ -27,8 +28,8 @@ draw_properties(1).showAnts = 0; % show ants?
 % strategy
 
 %strategy.type = 'none';
-%strategy.type = 'local';
-strategy.type = 'global'
+strategy.type = 'local';
+%strategy.type = 'global'
 
 [graph, nodes, edges] = gen_graph();
 
