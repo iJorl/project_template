@@ -20,6 +20,9 @@ nrColonies = length(colonies);
 nrSources  = length(sources);
 
 colonyProd = [];
+
+globalProd.intervals = [0];
+
 for i=1:1:nrColonies
     colonyProd(i).foodCounter       = 0;
     colonyProd(i).foodCounterGlobal = 0;
@@ -43,7 +46,7 @@ for t=1:timestep:time
     % move ants
    for antI=1:1:length(ants)
    %for antI=1:1:1 %ONLY TESTING PURPOSES
-        [ants(antI),sources,edges, prod, PopChange]= ant_move(ants(antI), sources, nodes, edges, colonies, colonyProd, strategy);
+        [ants(antI),sources,edges, prod, PopChange]= ant_move(ants(antI), sources, nodes, edges, colonies, colonyProd, strategy, globalProd);
         colonyProd(ants(antI).colony).foodCounter = colonyProd(ants(antI).colony).foodCounter + prod;
         if PopChange(1) ~= 0
            colonies(PopChange(1)).population = colonies(PopChange(1)).population + 1;
@@ -70,6 +73,7 @@ for t=1:timestep:time
     
     %measure productivity over smaller intervalls
     if mod(t,timeInterval) == 0
+        s = 0;
         for i=1:1:nrColonies
                 % add a new entry
                 colonyProd(i).populationInterval(colonyProd(i).interval) = colonyProd(i).populationInterval(colonyProd(i).interval)/ timeInterval;
@@ -80,7 +84,10 @@ for t=1:timestep:time
                 colonyProd(i).interval = colonyProd(i).interval + 1;
                 
                 colonyProd(i).populationInterval(colonyProd(i).interval) = 0;
+                
+                s = s + colonyProd(i).intervals(end);
         end
+        globalProd.intervals(end+1) = s;
         for i=1:1:nrSources
                 % add a new entry
                 sourceProd(i).intervals(sourceProd(i).interval) = sources(i).antNr - sourceProd(i).antsCount;
@@ -100,7 +107,7 @@ end
 %colonies(1).ants(7).path
 
 %analyze script
-analyse(colonyProd, sourceProd)
+analyse(colonyProd, sourceProd, globalProd)
 
 
 draw(nodes,edges, colonies, ants, draw_properties);

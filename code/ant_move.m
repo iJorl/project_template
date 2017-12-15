@@ -1,4 +1,5 @@
-function[newAnt,newSources,newEdges, prod, popChange] = ant_move(ant, sources, nodes, edges, colonies, colonyProd, strategy)
+function[newAnt,newSources,newEdges, prod, popChange] = ant_move(ant, sources, nodes, edges, colonies, colonyProd, strategy, globalProd)
+
 prod = 0;
 popChange = [0,0];
 uturnProb = 0.1; % Probability of a u-turn if no pheromones on edge
@@ -138,8 +139,9 @@ if strcmp(ant.state,'explore')
                     sources(nodes(pos).link).food = sources(nodes(pos).link).food -1;
                 else
                     ant.food = 0;
-                    sources(nodes(pos).link).antNr = sources(nodes(pos).link).antNr + 1;
                 end
+                sources(nodes(pos).link).antNr = sources(nodes(pos).link).antNr + 1;
+
                 %for i=1:length(sources)
                 %    if sources(i).pos == pos
                 %        ant.food = sources(i).quality;
@@ -206,10 +208,26 @@ if strcmp(ant.state,'back')
     if ant.edgeProgress == 0
         ant.pos = ant.path(length(ant.path));
         ant.path = ant.path(1:end-1);
+        
+        relocate = 0;
         % back at home -> turn around 
         if isempty(ant.path)
-            prod = ant.food;
+            %relocate = 1;
+
+            % decide to relocate
+            if strcmp(strategy.type, 'global') == 1
+                a = colonyProd(ant.colony).intervals(end); 
+                b = globalProd.intervals(end)/length(colonies);
+                if a < b
+                   r = rand();
+                   p = (b-a)/(a+b);
+                   if r <= p
+                      relocate = 1; 
+                   end
+                end
+            end
             
+            prod = ant.food;
             ant.path(1) = ant.pos;
             ant.edge = 0;
             ant.state = 'explore';
@@ -237,8 +255,47 @@ if strcmp(ant.state,'back')
                 ant.direction = -1;
             end
         end
-        ant.edgeProgress = ant.edgeProgress -1;  
-        edges(ant.edge).phermons(ant.colony) = edges(ant.edge).phermons(ant.colony) + ant.food;
+        if relocate == 0
+            ant.edgeProgress = ant.edgeProgress -1;  
+            edges(ant.edge).phermons(ant.colony) = edges(ant.edge).phermons(ant.colony) + ant.food;
+        elseif colonies(ant.colony).population > colonies(ant.colony).lowerLimit
+            %relocate
+                       
+            colNr = 0;
+            % calc prob where to move
+            
+            avgProd = globalProd.intervals(end)/length(colonies);
+            ps = 0;
+            for i=1:1:length(colonies)
+                %check if desirable target
+                if( avgProd <= colonyProd(i).intervals(end) ) 
+                   % check if still moving space
+                   if(colonies(i).population < colonies(i).upperLimit)
+                        ps = ps + colonyProd(i).intervals(end);
+                   end
+                end
+            end
+            r = rand() * ps;
+            for i=1:1:length(colonies)
+                %check if desirable target
+                if( avgProd <= colonyProd(i).intervals(end) ) 
+                   % check if still moving space
+                   if(colonies(i).population < colonies(i).upperLimit)
+                        ps = ps - colonyProd(i).intervals(end);
+                        if(ps <= 0)
+                           colNr = i; 
+                           break;
+                        end
+                   end
+                end
+            end
+            
+            % create new ant
+            if(colNr ~= 0)
+                popChange = [colNr, ant.colony];
+                ant = gen_ant(colNr, colonies(colNr).pos);
+            end
+        end
     else
 
         % travelling on a edge

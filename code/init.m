@@ -9,7 +9,7 @@
 %-------------------------------------
 %Ants Properties
 const_phermons = 300; %phermons mean live time
-antsPerColony  = 100;
+antsPerColony  = 10;
 
 %Time Properties
 time        = 500; %overall duration of sim
@@ -27,8 +27,8 @@ draw_properties(1).showAnts = 0; % show ants?
 % strategy
 
 %strategy.type = 'none';
-strategy.type = 'local';
-%strategy.type = 'global'
+%strategy.type = 'local';
+strategy.type = 'global'
 
 [graph, nodes, edges] = gen_graph();
 

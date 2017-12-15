@@ -1,4 +1,4 @@
-function [] = analyse(colonyProd, sourceProd)
+function [] = analyse(colonyProd, sourceProd, globalProd)
 clf('reset');
 hold on
 title('Productivity measure of ant colonies')
@@ -17,6 +17,24 @@ saveas(gcf,strcat('exports/plot_' ,strcat('1','.png')));
 figure();
 
 
+clf('reset');
+hold on
+title('Productivity measure over all ant colonies')
+xlabel('time') % x-axis label
+ylabel('Productivity [food per ant /time]') % y-axis label
+   
+plot([1:1:length(globalProd.intervals)],globalProd.intervals, 'DisplayName', 'Global Productivity')
+
+legend('Location','southeast')
+legend('boxoff')
+legend('show');
+
+hold off
+saveas(gcf,strcat('exports/plot_' ,strcat('global','.png')));
+figure();
+
+
+
 %
 clf('reset');
 hold on
@@ -24,7 +42,7 @@ title('Ant measure of sources')
 xlabel('time') % x-axis label
 ylabel('number of ants') % y-axis label
 for i=1:1:length(sourceProd)
-    sourceProd(i).intervals;
+    sourceProd(i).intervals
     plot([1:1:length(sourceProd(i).intervals)],sourceProd(i).intervals, 'DisplayName', strcat('Source', num2str(i)))
 end
 legend('Location','southeast')
@@ -34,6 +52,10 @@ legend('show');
 hold off
 saveas(gcf,strcat('exports/plot_' ,strcat('2','.png')));
 figure();
+
+
+
+
 
 clf('reset');
 hold on
