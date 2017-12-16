@@ -83,7 +83,7 @@ for t=1:timestep:time
                 colonyProd(i).populationInterval(colonyProd(i).interval) = colonyProd(i).populationInterval(colonyProd(i).interval)/ timeInterval;
                 %divide by nr of ants
                 colonyProd(i).intervals(colonyProd(i).interval) = colonyProd(i).foodCounter / colonyProd(i).populationInterval(colonyProd(i).interval);
-                colonyProd(i).intervals(colonyProd(i).interval) = colonyProd(i).intervals(colonyProd(i).interval) / timeInterval;
+                colonyProd(i).intervals(colonyProd(i).interval) = colonyProd(i).intervals(colonyProd(i).interval) 
 
                 colonyPord(i).foodCounterGlobal = colonyProd(i).foodCounterGlobal + colonyProd(i).foodCounter;
                 
@@ -93,8 +93,9 @@ for t=1:timestep:time
                 colonyProd(i).interval = colonyProd(i).interval + 1;
                 
                 colonyProd(i).populationInterval(colonyProd(i).interval) = 0;
+                
         end
-        globalProd.intervals(end+1) = s/(totalAnts*timeInterval);
+        globalProd.intervals(end+1) = s/totalAnts;
         for i=1:1:nrSources
                 % add a new entry
                 sourceProd(i).intervals(sourceProd(i).interval) = sources(i).antNr - sourceProd(i).antsCount;
@@ -114,7 +115,7 @@ end
 %colonies(1).ants(7).path
 
 %analyze script
-%analyse(colonyProd, sourceProd, globalProd, strategy)
+analyse(colonyProd, sourceProd, globalProd, strategy)
 
 
-%draw(nodes,edges, colonies, ants, draw_properties, strategy);
+draw(nodes,edges, colonies, ants, draw_properties, strategy);

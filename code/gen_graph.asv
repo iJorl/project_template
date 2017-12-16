@@ -1,4 +1,4 @@
-function[graph, nodes, edges, regen] = gen_graph(graphName)
+function[graph, nodes, edges] = gen_graph(graphName)
 
 %open file
 %fileID = fopen('graphs/phase_2_vis.txt','r');
@@ -33,7 +33,6 @@ end
 
 nrCols = 0;
 nodes = [];
-regen = [];
 for i=1:1:n
     % determine type
     nodes(i).type= 'traffic';
@@ -48,9 +47,8 @@ for i=1:1:n
     % link to correct source or nest
     nodes(i).link = A(offset+3);
     
-    if A(offset+2) ~= 0
-        regen(nodes(i).link) = A(offset+6);
-    end
+    nodes
+    
     nodes(i).pos = [A(offset+4), A(offset+5)];
     
     % get all edges
@@ -67,7 +65,7 @@ for i=1:1:n
         end
     end
     
-    offset = offset + 6;
+    offset = offset + 5;
 end
 
 %adjust size of phermons vector

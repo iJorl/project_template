@@ -14,9 +14,9 @@ for i=1:1:nrSim
     
     % efficiency per colony
     for j=4:1:4
-        ynone(i,:)      = Simulations(i).data(1).colonyProd(j).intervals;
-        ylocal(i,:)     = Simulations(i).data(2).colonyProd(j).intervals;
-        yglobal (i,:)   = Simulations(i).data(3).colonyProd(j).intervals;
+        %ynone(i,:)      = Simulations(i).data(1).colonyProd(j).intervals;
+        %ylocal(i,:)     = Simulations(i).data(2).colonyProd(j).intervals;
+        %yglobal (i,:)   = Simulations(i).data(3).colonyProd(j).intervals;
     end
     % population per colony
     

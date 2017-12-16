@@ -1,2 +1,3 @@
-load('matlabsaves/python_exmp_100sim.mat');
+load('matlabsaves/simulations.mat');
 simulation_analysis(Simulations);
+params
