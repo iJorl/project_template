@@ -5,9 +5,9 @@
 %Setup INP vars
 %-------------------------------------
 %Ants Properties
-const_phermons = 100; %phermons mean live time
+const_phermons = 20; %phermons mean live time
 antsPerColony  = 100;
-foodinit       = 200;
+foodinit       = 2000;
 diffPop        = 2;
 %Time Properties
 time        = 1000; %overall duration of sim

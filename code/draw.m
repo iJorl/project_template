@@ -1,4 +1,4 @@
-function [] = draw(nodes, edges, colonies,ants, draw_properties)
+function [] = draw(nodes, edges, colonies,ants, draw_properties, strategy)
 % set constants
 n=length(nodes);
 m = length(edges);
@@ -61,8 +61,12 @@ for col=1:1:cols
 
     %draw nodes
     for i=1:1:n
+        color = 'r';
+        if strcmp(nodes(i).type,'source') == 1
+           color = 'b';
+        end
         viscircles([off + nodes(i).pos(1)*per,off + nodes(i).pos(2)*per], ...
-            3, 'Color', 'r');
+            3, 'Color', color);
     end
     %mark home colony
     viscircles([off + nodes(colonies(col).pos).pos(1)*per,off + nodes(colonies(col).pos).pos(2)*per], ...
@@ -101,6 +105,6 @@ for col=1:1:cols
         end
     end
     prefix =strcat( strcat('col_',num2str(col)), strcat('time_',num2str(draw_properties.frameNr)));
-    saveas(gcf,strcat('exports/graph_' ,strcat(prefix,'.png')));
+    saveas(gcf,strcat(strcat('exports/graph_',strategy.type) ,strcat(prefix,'.png')));
 end
 draw_properties.frameNr = draw_properties.frameNr + 1;

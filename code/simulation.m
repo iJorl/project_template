@@ -111,4 +111,4 @@ end
 analyse(colonyProd, sourceProd, globalProd, strategy)
 
 
-%draw(nodes,edges, colonies, ants, draw_properties);
+draw(nodes,edges, colonies, ants, draw_properties, strategy);
