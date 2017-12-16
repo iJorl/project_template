@@ -7,7 +7,7 @@ function[globalProd, colonyProd, sourceProd] = simulation(graph, nodes, edges, s
 %--------------------------
 
 
-
+%draw(nodes,edges, colonies, ants, draw_properties);
 
 %Simulation loop
 %--------------------------

@@ -1,9 +1,9 @@
-function[colonies] = gen_colony(nodes, antsPerColony)
+function[colonies] = gen_colony(nodes, antsPerColony, diffPop)
 
 % place, nrOfAnts, Ants
 
 nrOfAnts = antsPerColony;
-diff = 1.25;
+diff = diffPop;
 
 colonies = [];
 s = 1;

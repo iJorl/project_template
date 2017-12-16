@@ -1,7 +1,8 @@
 function[graph, nodes, edges] = gen_graph()
 
 %open file
-fileID = fopen('graphs/phase_2_vis.txt','r');
+%fileID = fopen('graphs/phase_2_vis.txt','r');
+fileID = fopen('graphs/python_sample.txt','r');
 filter = '%f %f';
 A = fscanf(fileID, filter);
 fclose(fileID);

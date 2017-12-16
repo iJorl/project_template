@@ -86,7 +86,7 @@ if strcmp(ant.state,'explore')
         ant.pos = ant.path(length(ant.path));
         % check if discovered food source! - if yes has to switch to back
         % cant be own colony!
-        if strcmp(nodes(ant.pos).type,'source') && ant.pos ~= colonies(ant.colony).pos && sources(nodes(ant.pos).link).food > 0
+        if strcmp(nodes(ant.pos).type,'source') && ant.pos ~= colonies(ant.colony).pos %&& sources(nodes(ant.pos).link).food > 0
             %maybe want to apply local strategy
             changedFlag = 0;
             if strcmp(strategy.type, 'local')

@@ -2,20 +2,20 @@
 %------------------------------------
 
 
-
-
-
 %Setup INP vars
 %-------------------------------------
 %Ants Properties
-const_phermons = 300; %phermons mean live time
-antsPerColony  = 200;
-
+const_phermons = 100; %phermons mean live time
+antsPerColony  = 100;
+foodinit       = 100;
+diffPop        = 1.25;
 %Time Properties
 time        = 1000; %overall duration of sim
 timestep    = 1; 
-timeInterval = 50;
+timeInterval = 10;
 
+% sim props
+nrSim = 10;
 RandStream.setGlobalStream(RandStream('mt19937ar','seed',42))
 
 %drawProperties
@@ -39,8 +39,8 @@ strategy.type = 'local';
 %edges
 
 
-sources  = gen_sources(nodes);
-[colonies] = gen_colony(nodes, antsPerColony);
+sources  = gen_sources(nodes, foodinit);
+[colonies] = gen_colony(nodes, antsPerColony, diffPop);
 [ants] = gen_ants(colonies);
 
 for i=1:1:length(nodes)
@@ -67,10 +67,12 @@ simObjPrep = [simobj, simobj, simobj];
 simObjPrep(2).type = 'local';
 simObjPrep(3).type = 'global';
 
-nrSim = 1;
-
 for i=1:1:nrSim
-    Simulations(i).data = simObjPrep;
+    Simulations(i).data = simObjPrep; 
+end
+
+parfor (i=1:1:nrSim,4)
+    strcat('running Simulation ', num2str(i))
     for j=1:1:3
         [Simulations(i).data(j).globalProd,...
         Simulations(i).data(j).colonyProd,...
@@ -82,47 +84,9 @@ for i=1:1:nrSim
 end
 %Analyse 
 %------------------------------------- 
-
-analysisObj.avg = [];
-analysisObj.min = [];
-analysisObj.max = [];
-
-analysis(1).data = [analysisObj, analysisObj, analysisObj];
-
-sizeOfSim = length(Simulations(1).data(1).globalProd.intervals);
-for k=1:1:sizeOfSim
- 
-     for j=1:1:3
-        savg = 0;
-        smax = Simulations(k).data(j).globalprod.intervals(1);
-        smin = Simulations(k).data(j).globalprod.intervals(1);
-       
-        for i=1:1:sizeOfSim
-            a = Simulations(k).data(j).globalProd.intervals(i);
-            s = s + a
-            sma = max(sma, a);
-            smi = min(smi, a);           
-        end
-    end
-    
-    
-    s = 0;
-    sma = Simulations(i).globalProd.intervals(k);
-    smi = sma;
-    for i=1:1:nrSim
-        s = s + Simulations(i).globalProd.intervals(k);
-        sma = max(sma, Simulations(i).globalProd.intervals(k));
-        smi = min(smi, Simulations(i).globalProd.intervals(k));
-    end
-    prod.avg(k) = s / nrSim;
-    prod.max(k) = sma;
-    prod.min(k) = smi;
-end
-Simulations(1).globalProd.intervals
-prod
-plot(1:1:length(Simulations(1).globalProd.intervals),prod.avg,...
-     1:1:length(Simulations(1).globalProd.intervals),prod.max,...
-     1:1:length(Simulations(1).globalProd.intervals),prod.min)
+simulation_analysis(Simulations);
+% get global productivity in right measurement
+save('matlabsaves/simulations.mat', 'Simulations');
 %Viz
 %-------------------------------------
 %make_movie(draw_properties.frameNr-1)
