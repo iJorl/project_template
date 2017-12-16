@@ -15,7 +15,7 @@ timestep    = 1;
 timeInterval = 10;
 
 % sim props
-nrSim = 10;
+nrSim = 1;
 RandStream.setGlobalStream(RandStream('mt19937ar','seed',42))
 
 %drawProperties
@@ -27,8 +27,8 @@ draw_properties(1).showAnts = 0; % show ants?
 
 % strategy
 
-%strategy.type = 'none';
-strategy.type = 'local';
+strategy.type = 'none';
+%strategy.type = 'local';
 %strategy.type = 'global'
 
 [graph, nodes, edges] = gen_graph();
@@ -58,19 +58,20 @@ end
 simobj.globalProd = [];
 simobj.colonyProd = [];
 simobj.sourceProd = [];
-simobj.type       = 'none';
+simobj.strategy(1)   = strategy;
 Simulations = []
 Simulations(1).data = [simobj, simobj, simobj];
 
 
 simObjPrep = [simobj, simobj, simobj];
-simObjPrep(2).type = 'local';
-simObjPrep(3).type = 'global';
-
+simObjPrep(2).strategy.type = 'local';
+simObjPrep(3).strategy.type = 'global';
+simObjPrep(1).strategy
 for i=1:1:nrSim
-    Simulations(i).data = simObjPrep; 
+    for j=1:1:3
+        Simulations(i).data(j) = simObjPrep(j);  
+    end
 end
-
 parfor (i=1:1:nrSim,4)
     strcat('running Simulation ', num2str(i))
     for j=1:1:3
@@ -78,7 +79,7 @@ parfor (i=1:1:nrSim,4)
         Simulations(i).data(j).colonyProd,...
         Simulations(i).data(j).sourceProd]= simulation(graph, nodes, edges, sources,...
            colonies, ants, time, timestep, timeInterval,...
-           const_phermons, draw_properties, strategy);    
+           const_phermons, draw_properties, Simulations(i).data(j).strategy);    
     end
     
 end

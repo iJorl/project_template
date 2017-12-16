@@ -7,7 +7,7 @@ function[globalProd, colonyProd, sourceProd] = simulation(graph, nodes, edges, s
 %--------------------------
 
 
-draw(nodes,edges, colonies, ants, draw_properties);
+%draw(nodes,edges, colonies, ants, draw_properties);
 
 %Simulation loop
 %--------------------------
@@ -107,7 +107,7 @@ end
 %colonies(1).ants(7).path
 
 %analyze script
-%analyse(colonyProd, sourceProd, globalProd)
+analyse(colonyProd, sourceProd, globalProd)
 
 
 %draw(nodes,edges, colonies, ants, draw_properties);
