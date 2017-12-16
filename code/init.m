@@ -7,8 +7,8 @@
 %Ants Properties
 const_phermons = 100; %phermons mean live time
 antsPerColony  = 100;
-foodinit       = 100;
-diffPop        = 1.25;
+foodinit       = 200;
+diffPop        = 2;
 %Time Properties
 time        = 1000; %overall duration of sim
 timestep    = 1; 

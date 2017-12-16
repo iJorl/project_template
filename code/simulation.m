@@ -74,6 +74,7 @@ for t=1:timestep:time
     %measure productivity over smaller intervalls
     if mod(t,timeInterval) == 0
         s = 0;
+        %population and sum up prod
         for i=1:1:nrColonies
                 % add a new entry
                 colonyProd(i).populationInterval(colonyProd(i).interval) = colonyProd(i).populationInterval(colonyProd(i).interval)/ timeInterval;
@@ -107,7 +108,7 @@ end
 %colonies(1).ants(7).path
 
 %analyze script
-analyse(colonyProd, sourceProd, globalProd)
+analyse(colonyProd, sourceProd, globalProd, strategy)
 
 
 %draw(nodes,edges, colonies, ants, draw_properties);

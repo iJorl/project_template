@@ -1,4 +1,7 @@
-function [] = analyse(colonyProd, sourceProd, globalProd)
+function [] = analyse(colonyProd, sourceProd, globalProd, strategy)
+
+
+
 clf('reset');
 hold on
 title('Productivity measure of ant colonies')
@@ -13,7 +16,8 @@ legend('boxoff')
 legend('show');
 
 hold off
-saveas(gcf,strcat('exports/plot_' ,strcat('1','.png')));
+st = strcat(strcat('exports/plot_',strategy.type) ,strcat('1','.png'));
+saveas(gcf,st);
 figure();
 
 
@@ -30,7 +34,7 @@ legend('boxoff')
 legend('show');
 
 hold off
-saveas(gcf,strcat('exports/plot_' ,strcat('global','.png')));
+saveas(gcf,strcat(strcat('exports/plot_',strategy.type) ,strcat('global','.png')));
 figure();
 
 
@@ -50,7 +54,7 @@ legend('boxoff')
 legend('show');
 
 hold off
-saveas(gcf,strcat('exports/plot_' ,strcat('2','.png')));
+saveas(gcf,strcat(strcat('exports/plot_',strategy.type) ,strcat('2','.png')));
 figure();
 
 
@@ -71,5 +75,5 @@ legend('boxoff')
 legend('show');
 
 hold off
-saveas(gcf,strcat('exports/plot_' ,strcat('3','.png')));
+saveas(gcf,strcat(strcat('exports/plot_',strategy.type) ,strcat('3','.png')));
 figure();
