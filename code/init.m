@@ -1,5 +1,5 @@
-function[] = init()
-graphname = 'sbb';
+function[] = init(graphname)
+%graphname = 'python_sample';
 % INIT.m - the brain
 %------------------------------------
 
@@ -18,7 +18,7 @@ timestep    = 1;
 timeInterval = 10;
 
 % sim props
-nrSim = 30;
+nrSim = 50;
 RandStream.setGlobalStream(RandStream('mt19937ar','seed',42))
 
 %drawProperties
@@ -105,7 +105,7 @@ params.nrSim = nrSim;
 simulation_analysis(Simulations);
 % get global productivity in right measurement
 savename = strcat('simulation_',graphname);
-save(strcat(strcat('matlabsaves/', savename),'.mat'), 'Simulations','edges','params');
+save(strcat(strcat('matlabsaves/', savename),'.mat'), 'Simulations','edges','params', 'nodes','sources','colonies');
 %Viz
 %-------------------------------------
 %make_movie(draw_properties.frameNr-1)

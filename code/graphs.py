@@ -1,5 +1,5 @@
 import sys,os, random
-graphs = 10;
+graphs = 100;
 random.seed(1);
 seeds = random.sample(range(1,1000),graphs)
 for i in range(graphs):

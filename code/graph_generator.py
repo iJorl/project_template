@@ -9,7 +9,7 @@ mdist = round(math.sqrt(xmax**2 + ymax**2))
 colLimit = 10;
 
 #create nodes
-nodes = [[i+1, 0,0,round(random.uniform(xmin, xmax),2) , round(random.uniform(ymin, ymax),2)] for i in range(n)]
+nodes = [[i+1, 0,0,round(random.uniform(xmin, xmax),2) , round(random.uniform(ymin, ymax),2), round(random.uniform(1,10),2)] for i in range(n)]
 def dist(a, b):
     return round(math.sqrt((nodes[a][3] - nodes[b][3])**2 + (nodes[a][4]-nodes[b][4])**2))
 
@@ -43,4 +43,4 @@ print(n, m)
 for edge in s:
     print(edge[0]+1, edge[1]+1, dist(edge[0], edge[1]))
 for node in nodes:
-    print(node[0], node[1], node[2], node[3], node[4])
+    print(node[0], node[1], node[2], node[3], node[4], node[5])
