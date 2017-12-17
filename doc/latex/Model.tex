@@ -31,6 +31,7 @@ P_i = \frac{(k+C_i)^n}{\sum{_{j=1}^{nr}(k+C_j)^n}}
 \end{figure}
 Notice, that although the graph is not directed the decision of taking the same edge back to where the ant came from is not allowed. This edge is not part of the decision set.
 Because we represent the terrain on which the ants move by a graph, the implementation of direction based turns is very difficult. Therefore we set $P_0 = 1$ in equation \ref{UTurn} and are left with the pheromone based U-turn equation.
+
 \subsection{Relation to the Swiss rail network}\label{relationNetwork}
 The Swiss rail network should be described with the help of this model. The network is given as a graph, which connects all train station to each other. The following analogies between the ant and the train model have been made:
 \begin{itemize}
