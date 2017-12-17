@@ -32,6 +32,9 @@ P_i = \frac{(k+C_i)^n}{\sum{_{j=1}^{nr}(k+C_j)^n}}
 Notice, that although the graph is not directed the decision of taking the same edge back to where the ant came from is not allowed. This edge is not part of the decision set.
 Because we represent the terrain on which the ants move by a graph, the implementation of direction based turns is very difficult. Therefore we set $P_0 = 1$ in equation \ref{UTurn} and are left with the pheromone based U-turn equation.
 
+Also we need the possibility of multiple colonies in the graph. Doing so the colonies and the food source are merged to one type of node. Every colony sees all nodes, except for their home node as food source. 
+
+Since the topic of this paper is the investigation of global and local reallocation in a graph we have to add that functionality to our model. Local redistribution happens, when an ant reaches a food source. With a probability depending on the difference in the productivity per ant of both colonies the ant will be reallocated to the new colony. In contrary to the local approach, the ants do not have to walk to their new home in the global solution. Instead the reallocation happens, when the ant arrives at its own nest. If the productivity of that ant is lower, then the global average productivity, The ant can be transferred to a new colony.
 \subsection{Relation to the Swiss rail network}\label{relationNetwork}
 The Swiss rail network should be described with the help of this model. The network is given as a graph, which connects all train station to each other. The following analogies between the ant and the train model have been made:
 \begin{itemize}
