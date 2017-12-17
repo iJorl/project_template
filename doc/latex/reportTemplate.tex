@@ -7,6 +7,7 @@
 \usepackage{epstopdf}
 \usepackage{float}
 \usepackage[sort, numbers]{natbib}
+\usepackage{url}
 \setcitestyle{square}
 \usepackage{amssymb, amsmath}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
@@ -88,7 +89,7 @@
 \section{Individual contributions}
 \input{Contributions}
 
-\section{Introduction and Motivations}
+\section{Introduction and Motivations} \label{intro}
 \input{Introduction}
 
 \section{Description of the Model} \label{modeldesc}
@@ -102,6 +103,7 @@
 \section{Summary and Outlook}
 
 \begin{flushleft}
+\nocite{*}
 \bibliography{References}
 \bibliographystyle{apalike}
 \end{flushleft}
