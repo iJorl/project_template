@@ -108,3 +108,73 @@ for col=1:1:cols
     saveas(gcf,strcat(strcat('exports/graph_',strategy.type) ,strcat(prefix,'.png')));
 end
 draw_properties.frameNr = draw_properties.frameNr + 1;
+
+
+
+% draw one with each colony repr. all edges
+
+    clf('reset');
+    if(draw_properties.show == 0)
+        set(gcf, 'Visible', 'off');
+    end
+    title(strcat('Used Edges of all colonies ',num2str(col)), 'FontSize', 12);
+    % Enlarge figure to full screen.
+    set(gcf, 'Units', 'Normalized', 'OuterPosition', [0 0 1 1]);
+    % Give a name to the title bar.
+    set(gcf, 'Name', 'Viz by Mantlab', 'NumberTitle', 'Off')
+    set(gca,'Ydir','normal');
+    xlabel('x Coordinates'),
+    ylabel('y Coordinates');
+    hold on;
+    axis on;
+
+    % find right scale
+    mi = 1000;
+    ma = 0;
+    height = 1000;
+    width = 1000;
+    for i=1:1:n
+        mi = min(mi, min(nodes(i).pos(1), nodes(i).pos(2)));
+        ma = max(ma, max(nodes(i).pos(1), nodes(i).pos(2)));
+    end
+
+    dist = ma-mi;
+    dist = dist*1.4;
+    per = 1000/dist;
+    off = 0.2*dist;
+
+    %draw Edges
+
+    maxPherPerEdge = 0;
+    for i=1:1:m
+       maxPherPerEdge = max(maxPherPerEdge,sum(edges(i).phermons ./ edges(i).weight)); 
+    end
+
+    for i=1:1:m
+        a = edges(i).to;
+        b = edges(i).from;
+        pp = (sum(edges(i).phermons ./ edges(i).weight)) /maxPherPerEdge;
+        lw = 1 + 7*pp;
+        if isnan(lw)
+           lw = 1; 
+        end
+        ax = (off + nodes(a).pos(1)*per);
+        ay = (off + nodes(a).pos(2)*per);
+        bx = (off + nodes(b).pos(1)*per);
+        by = (off + nodes(b).pos(2)*per);
+       line([ax bx], [ ay by ],...
+       'Color', 'k','Linewidth', lw);
+    end
+
+    %draw nodes
+    for i=1:1:n
+        color = 'r';
+        if strcmp(nodes(i).type,'source') == 1
+           color = 'b';
+        end
+        viscircles([off + nodes(i).pos(1)*per,off + nodes(i).pos(2)*per], ...
+            3, 'Color', color);
+    end
+        
+    prefix =strcat( strcat('col_',num2str(col)), strcat('time_',num2str(draw_properties.frameNr)));
+    saveas(gcf,strcat(strcat('exports/graph_allcols_',strategy.type) ,strcat(prefix,'.png')));

@@ -13,12 +13,12 @@ foodinit       = 200;
 diffPop        = 2;
 
 %Time Properties
-time        = 2000; %overall duration of sim
+time        = 1000; %overall duration of sim
 timestep    = 1; 
 timeInterval = 10;
 
 % sim props
-nrSim = 50;
+nrSim = 30;
 RandStream.setGlobalStream(RandStream('mt19937ar','seed',42))
 
 %drawProperties

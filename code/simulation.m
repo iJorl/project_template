@@ -6,9 +6,6 @@ function[globalProd, colonyProd, sourceProd] = simulation(graph, nodes, edges, s
 %check all parameters
 %--------------------------
 
-
-%draw(nodes,edges, colonies, ants, draw_properties);
-
 %Simulation loop
 %--------------------------
 % for each timestep
@@ -23,6 +20,7 @@ colonyProd = [];
 
 globalProd.intervals = [0];
 
+draw(nodes, edges, colonies,ants, draw_properties, strategy);
 
 totalAnts = 0;
 for i=1:1:nrColonies
@@ -116,5 +114,5 @@ end
 %analyze script
 %analyse(colonyProd, sourceProd, globalProd, strategy)
 
-
+draw(nodes, edges, colonies,ants, draw_properties, strategy);
 %draw(nodes,edges, colonies, ants, draw_properties, strategy);
