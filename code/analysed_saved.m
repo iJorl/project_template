@@ -1,3 +1,3 @@
-load('matlabsaves/simulation_graph_8.mat');
+load('matlabsaves/simulation_sbb_30.mat');
 simulation_analysis(Simulations);
 params
